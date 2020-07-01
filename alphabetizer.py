@@ -11,12 +11,19 @@ for line in file_obj:
     if count % 2 == 0:
         ## do something with english text
         ##print("English: " + line)
-        english_word = line
+        english_word = line.rstrip("\n")
 
     else:
         ## do something with greek text
         ##print("Greek: " + line)
-        dict[english_word.rstrip("\n")] = line.rstrip("\n")
+
+        ## check if word in the dict and if so make multiple entries
+        if english_word in dict:
+            dict[english_word + " (1)"] = dict.pop(english_word)
+            dict[english_word + " (2)"] = line.rstrip("\n")
+
+        else:
+            dict[english_word] = line.rstrip("\n")
 
     count += 1
 
